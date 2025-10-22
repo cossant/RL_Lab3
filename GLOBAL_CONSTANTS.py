@@ -1,0 +1,18 @@
+# Random
+M_RENT_A = 3
+M_RENT_B = 4
+
+M_RETURN_A = 3
+M_RETURN_B = 2
+
+# Limits
+MAX_CARS_PER_STATION = 20
+MAX_MOVES = 5
+
+# Revenues
+R_RENT = 10
+R_MOVE = -2
+
+# Evaluation
+COEFF_OF_FORGET = 0.9
+STARTING_STATES_WEIGHT = 100
