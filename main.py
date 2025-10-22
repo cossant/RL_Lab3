@@ -10,7 +10,7 @@ from PolicyEvaluator import *
 generateEventProbabilities()
 
 # Evaluation init
-currStateWeights = [[STARTING_STATES_WEIGHT for _ in range(MAX_CARS_PER_STATION)] for _ in range(MAX_CARS_PER_STATION)]
+currStateWeights = [[STARTING_STATES_WEIGHT for _ in range(MAX_CARS_PER_STATION + 1)] for _ in range(MAX_CARS_PER_STATION + 1)]
 currPolicy = PolicyHelpers.generateEqualProbabilityPolicy(ALL_ACTIONS_COUNT)
 
 # Tests
