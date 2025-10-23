@@ -16,8 +16,7 @@ currPolicy = PolicyHelpers.generateEqualProbabilityPolicy(ALL_ACTIONS_COUNT)
 # Tests
 
 for testRun in range(1):
-    currStateWeights, recieved_delta = PolicyEvaluator._calculateStateWeights(currStateWeights, currPolicy)
+    currStateWeights = PolicyEvaluator.convergeWeights(currStateWeights, currPolicy, 100)
 
-print(recieved_delta)
 printCurrStateWeights(currStateWeights)
 

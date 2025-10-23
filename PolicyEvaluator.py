@@ -1,4 +1,4 @@
-import PuassonGen
+from PuassonGen import poisson_pmf
 from GLOBAL_CONSTANTS import MAX_CARS_PER_STATION, R_MOVE, R_RENT, COEFF_OF_FORGET
 from ACTIONS import ALL_ACTIONS_COUNT, applyAction, ACTIONS, cropValue
 
@@ -56,7 +56,7 @@ def _calculateActionWeights(state_weights, current_state : tuple[int, int]):
 def _calculateActionWeight(action_index, current_state : tuple[int, int], state_weights):
     cars_in_a, cars_in_b = current_state
     action_summary_reward = 0
-    # Foreach probabilities
+    # Foreach probabilitie
     for cars_rent_a in CARS_RANGE:
         for cars_rent_b in CARS_RANGE:
             revenue = R_MOVE * abs(ACTIONS[action_index]) + R_RENT * (cars_rent_a + cars_rent_b)
@@ -73,10 +73,10 @@ def _calculateActionWeight(action_index, current_state : tuple[int, int], state_
                     resulting_cars_in_a, resulting_cars_in_b = applyAction(action_index, resulting_cars_in_a, resulting_cars_in_b)
 
                     total_probability = 1
-                    total_probability *= PuassonGen.RENT_A_probabilities[cars_rent_a]
-                    total_probability *= PuassonGen.RENT_B_probabilities[cars_rent_b]
-                    total_probability *= PuassonGen.RETURN_A_probabilities[cars_returned_a]
-                    total_probability *= PuassonGen.RETURN_B_probabilities[cars_returned_b]
+                    total_probability *= poisson_pmf(cars_rent_a,cars_in_a,"RENT_A")
+                    total_probability *= poisson_pmf(cars_rent_b,cars_in_b,"RENT_B")
+                    total_probability *= poisson_pmf(cars_returned_a,MAX_CARS_PER_STATION - cars_in_a,"RETURN_A")
+                    total_probability *= poisson_pmf(cars_returned_b,MAX_CARS_PER_STATION - cars_in_b,"RETURN_B")
                     action_summary_reward += total_probability * (revenue + COEFF_OF_FORGET * state_weights[resulting_cars_in_a][resulting_cars_in_b])
     return action_summary_reward
 
